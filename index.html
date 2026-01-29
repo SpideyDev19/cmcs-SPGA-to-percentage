@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>SPGA to Percentage - CMCS</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+*{
+  box-sizing: border-box;
+}
+
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background-image: url(cmcs.webp);
+  background-size: cover;
+  background-position: center;
+  font-family:'Poppins', Arial, sans-serif;
+  padding: 20px;
+}
+
+/* ===== MAIN BOX ===== */
+.box{
+  width:100%;
+  max-width:370px;
+  border: rgba(255, 255, 255, 0.548) solid 1.5px;
+  border-radius:20px;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(5px);
+  padding: 40px 30px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  text-align:center;
+}
+
+h2{
+  margin-bottom: 28px;
+  color: #0f0e0e;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/* ===== INPUT ===== */
+input{
+  width:100%;
+  padding: 14px 16px;
+  font-size: 16px;
+  border-radius: 12px;
+  border: rgba(255, 255, 255, 0.3) solid 2px;
+  background: rgba(0, 0, 0, 0.4);
+  color: #fff;
+  transition: 0.3s;
+}
+
+input::placeholder{
+  color: rgba(255, 255, 255, 0.6);
+}
+
+input:focus{
+  outline:none;
+  border-color: rgba(255, 255, 255, 0.7);
+  background: rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+}
+
+/* remove number arrows */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button{
+  -webkit-appearance:none;
+  margin:0;
+}
+
+/* ===== BUTTON ===== */
+button{
+  width:100%;
+  margin-top: 22px;
+  padding: 14px;
+  border:none;
+  border-radius:12px;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  font-size:16px;
+  font-weight:600;
+  color:#fff;
+  cursor:pointer;
+  transition:0.3s;
+  box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+}
+
+button:hover{
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(102,126,234,0.6);
+}
+
+/* ===== RESULT ===== */
+.result{
+  margin-top: 24px;
+  min-height: 30px;
+  font-size: 26px;
+  font-weight:600;
+  color:#ffd700;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.error{
+  color:#ff6b6b;
+}
+
+/* ===== WATERMARK ===== */
+.watermark{
+  position: fixed;
+  bottom: 15px;
+  right: 15px;
+  font-size: 12px;
+  color: rgba(255,255,255,0.5);
+}
+
+/* ===== MOBILE ===== */
+@media (max-width: 480px){
+  .box{
+    padding: 30px 22px;
+  }
+
+  h2{
+    font-size: 20px;
+  }
+
+  input, button{
+    font-size: 15px;
+    padding: 12px;
+  }
+
+  .result{
+    font-size: 22px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="box">
+  <h2>SPGA to Percentage</h2>
+
+  <input
+    type="number"
+    step="0.01"
+    id="spga"
+    placeholder="Enter SPGA (e.g. 6.21)"
+  >
+
+  <button onclick="convert()">Convert</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<div class="watermark">SpideyDev</div>
+
+<script>
+function convert(){
+  const spga = parseFloat(document.getElementById("spga").value);
+  const result = document.getElementById("result");
+
+  if(isNaN(spga) || spga < 0 || spga > 10){
+    result.innerText = "Enter valid SPGA (0–10)";
+    result.classList.add("error");
+    return;
+  }
+
+  result.classList.remove("error");
+  const percentage = (spga * 10 - 7.5).toFixed(2);
+  result.innerText = percentage + "%";
+}
+</script>
+
+</body>
+</html>
